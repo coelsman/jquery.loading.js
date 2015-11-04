@@ -1,10 +1,26 @@
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="dev/jquery.loading.css">
+<head>
+	<link rel="stylesheet" type="text/css" href="dev/jquery.loading.css">
 
-		<script type="text/javascript" src="dev/jquery.loading.js"></script>
-	</head>
-	<body>
-		
-	</body>
+	<style type="text/css">
+.demo {
+	width: 800px; height: 300px;
+	margin: auto;
+}
+	</style>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="dev/jquery.loading.js"></script>
+</head>
+<body>
+	<div class="demo"></div>
+</body>
+<script type="text/javascript">
+$('.demo').loading({
+	shape: 'circle',
+	itemQuantity: 16,
+	speed: 'fast',
+	type: 'square'
+	// itemSize: 10
+}).run();
+</script>
 </html>

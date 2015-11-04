@@ -1,0 +1,27 @@
+.jquery-loading {
+	position: relative;
+}
+.jquery-loading .ld-center {
+	position: absolute;
+	width: 150px;
+	left: 50%;
+	margin-left: -75px;
+}
+.jquery-loading .ld-center:after {
+	content: ' ';
+	display: block;
+	clear: both;
+}
+.jquery-loading .ld-center .ld-item {
+	background-color: #000;
+	margin-right: 3px;
+}
+.jquery-loading .ld-center .ld-item.inline {
+	float: left;
+}
+.jquery-loading .ld-center .ld-item.square {
+	position: absolute;
+}
+.jquery-loading .ld-center {}
+.jquery-loading {}
+.jquery-loading {}
