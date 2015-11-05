@@ -15,12 +15,20 @@
 	<div class="demo"></div>
 </body>
 <script type="text/javascript">
-$('.demo').loading({
+var loading = $('.demo').loading({
 	shape: 'circle',
 	itemQuantity: 16,
 	speed: 'fast',
-	type: 'square'
-	// itemSize: 10
-}).run();
+	type: 'square',
+	itemSize: 10,
+	itemColor: '#939'
+});
+
+loading.run(function () {
+	setTimeout(function () {
+		loading.stop();
+	}, 2000);
+});
+
 </script>
 </html>

@@ -11,12 +11,13 @@ if ("undefined" == typeof jQuery)
 	// Define Constant variables
 	var SPEED = { 'slow': 4, 'normal': 8, 'fast': 12 },
 			SIZE = { 'small': 6, 'normal': 10, 'large': 20 },
-			TYPE = ['inline', 'square', 'circle', 'wave'];
+			TYPE = ['inline', 'square', 'triangle', 'circle', 'wave'];
 
 	var Loading = function (element, options) {
 		this.hasOption = (typeof options == 'object');
 		this.element = element;
 		this.opt = {
+			itemColor: '#000',
 			itemQuantity: 6,
 			itemSize: 6,
 			speed: 4,
@@ -33,6 +34,7 @@ if ("undefined" == typeof jQuery)
 
 		appendData: function (options) {
 			if (this.hasOption) {
+				this.opt.itemColor = (options.itemColor) ? options.itemColor : this.opt.itemColor;
 				this.opt.itemQuantity = (options.itemQuantity) ? options.itemQuantity : this.opt.itemQuantity;
 				this.opt.shape = (options.shape) ? options.shape : this.opt.shape;
 				this.opt.itemSize = (options.itemSize) ? options.itemSize : this.opt.itemSize;
@@ -52,18 +54,23 @@ if ("undefined" == typeof jQuery)
 		},
 
 		generate: function () {
+			this.element.css('display' ,'block');
 			this.element.addClass('jquery-loading').html('<div class="ld-center"></div>');
 
 			if (this.opt.type == 'inline')
 				this.generateInline();
 			else if (this.opt.type == 'square')
 				this.generateSquare();
+			else if (this.opt.type == 'triangle')
+				this.generateTriangle();
 
+			this.element.find('.ld-item').css('background-color', this.opt.itemColor);
 			this.presentation();
 		},
 
-		run: function () {
+		run: function (action) {
 			this.generate();
+			action();
 		},
 
 		presentation: function () {
@@ -90,6 +97,7 @@ if ("undefined" == typeof jQuery)
 
 		stop: function () {
 			clearInterval(this.actionInterval);
+			this.element.css('display', 'none');
 		},
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -113,13 +121,13 @@ if ("undefined" == typeof jQuery)
 						_divide = this.opt.itemQuantity / 4;
 
 				for (var i=0; i<this.opt.itemQuantity; i++) {
-					if (Math.ceil(i / _divide) == 1) {
+					if (i / _divide <= 1) {
 						_left += this.opt.itemSize + 3;
-					} else if (Math.ceil(i / _divide) == 2) {
+					} else if (i / _divide <= 2) {
 						_top += this.opt.itemSize + 3;
-					} else if (Math.ceil(i / _divide) == 3) {
+					} else if (i / _divide <= 3) {
 						_left -= this.opt.itemSize + 3;
-					} else if (Math.ceil(i / _divide) == 4) {
+					} else if (i / _divide <= 4) {
 						_top -= this.opt.itemSize + 3;
 					}
 
@@ -152,8 +160,28 @@ if ("undefined" == typeof jQuery)
 			// 		this.element.find('.ld-center').append('<div style="'+this.itemStyle+'" class="ld-item inline '+this.opt.shape+'"></div>');
 			// 	}
 			// }
-		}
+		},
 
+		generateTriangle: function () {
+			var _top = 0,
+					_left = 30,
+					_divide = this.opt.itemQuantity / 3,
+					_size = 60,
+					_height = (Math.sqrt(3) / 2) * _size;
+
+			for (var i=0; i<this.opt.itemQuantity; i++) {
+				if (i / _divide <= 1) {
+					_left += 30 / _divide;
+					_top += _height / _divide;
+				} else if (i / _divide <= 2) {
+					_left -= 60 / _divide;
+				} else if (i / _divide <= 3) {
+					_left += 30 / _divide;
+					_top -= _height / _divide;
+				}
+				this.element.find('.ld-center').append('<div style="'+this.itemStyle+';left:'+_left+'px;top:'+_top+'px" class="ld-item square '+this.opt.shape+'"></div>');
+			}
+		}
 	};
 
 	$.fn.loading = function (options) {
