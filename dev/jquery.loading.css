@@ -3,9 +3,7 @@
 }
 .jquery-loading .ld-center {
 	position: absolute;
-	width: 150px;
 	left: 50%;
-	margin-left: -75px;
 }
 .jquery-loading .ld-center:after {
 	content: ' ';

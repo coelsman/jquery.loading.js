@@ -4,7 +4,7 @@
 
 	<style type="text/css">
 .demo {
-	width: 800px; height: 300px;
+	width: 200px; height: 300px;
 	margin: auto;
 }
 	</style>
@@ -17,17 +17,21 @@
 <script type="text/javascript">
 var loading = $('.demo').loading({
 	shape: 'circle',
-	itemQuantity: 16,
+	itemQuantity: 10,
 	speed: 'fast',
-	type: 'square',
+	type: 'circle',
 	itemSize: 10,
-	itemColor: '#939'
+	itemColor: '#939',
+	message: {
+		content: 'Loading data from server...',
+		position: 'top' // top, left, right, bottom
+	}
 });
 
 loading.run(function () {
-	setTimeout(function () {
-		loading.stop();
-	}, 2000);
+	// setTimeout(function () {
+	// 	loading.stop();
+	// }, 2000);
 });
 
 </script>

@@ -39,6 +39,7 @@ if ("undefined" == typeof jQuery)
 				this.opt.shape = (options.shape) ? options.shape : this.opt.shape;
 				this.opt.itemSize = (options.itemSize) ? options.itemSize : this.opt.itemSize;
 				this.opt.speed = (options.speed) ? SPEED[options.speed] : this.opt.speed;
+				this.opt.message = (options.message) ? options.message : null;
 
 				if (options.type) {
 					if (TYPE.indexOf(options.type) != -1)
@@ -54,16 +55,21 @@ if ("undefined" == typeof jQuery)
 		},
 
 		generate: function () {
+			var width;
+
 			this.element.css('display' ,'block');
 			this.element.addClass('jquery-loading').html('<div class="ld-center"></div>');
 
 			if (this.opt.type == 'inline')
-				this.generateInline();
+				width = this.generateInline();
 			else if (this.opt.type == 'square')
-				this.generateSquare();
+				width = this.generateSquare();
 			else if (this.opt.type == 'triangle')
-				this.generateTriangle();
+				width = this.generateTriangle();
+			else if (this.opt.type == 'circle')
+				width = this.generateCircle();
 
+			this.element.find('.ld-center').css('margin-left', '-'+(width/2)+'px');
 			this.element.find('.ld-item').css('background-color', this.opt.itemColor);
 			this.presentation();
 		},
@@ -107,6 +113,7 @@ if ("undefined" == typeof jQuery)
 			for (var i=0; i<this.opt.itemQuantity; i++) {
 				this.element.find('.ld-center').append('<div style="'+this.itemStyle+'" class="ld-item inline '+this.opt.shape+'"></div>');
 			}
+			return this.element.find('.ld-center').width();
 		},
 
 		/**
@@ -117,7 +124,7 @@ if ("undefined" == typeof jQuery)
 				throw new Error('LoadingJS: Quantity must be divisible by 4');
 			else {
 				var _top = 0,
-						_left = 0,
+						_left = 0 - (this.opt.itemSize + 3),
 						_divide = this.opt.itemQuantity / 4;
 
 				for (var i=0; i<this.opt.itemQuantity; i++) {
@@ -133,39 +140,38 @@ if ("undefined" == typeof jQuery)
 
 					this.element.find('.ld-center').append('<div style="'+this.itemStyle+';left:'+_left+'px;top:'+_top+'px" class="ld-item square '+this.opt.shape+'"></div>');
 				}
+
+				return (_divide + 1) * (this.opt.itemSize + 3);
 			}
 		},
 
 		generateCircle: function () {
 			var _top = 0,
-					_left = 20,
-					_angle = 360/this.opt.itemQuantity,
-					_r = 20;
+					_left = 0,
+					_angle = 0,
+					_step = (2 * Math.PI) / this.opt.itemQuantity;
+					_radius = 30;
+
+			for (var i=0; i<this.opt.itemQuantity; i++) {
+				_angle += _step;
+				_left = Math.cos(_angle) * _radius + 30;
+				_top = Math.sin(_angle) * _radius + 30;
+				this.element.find('.ld-center').append('<div style="'+this.itemStyle+';left:'+_left+'px;top:'+_top+'px" class="ld-item square '+this.opt.shape+'"></div>');
+			}
+			return _radius * 2 + this.opt.itemSize;
 		},
 
 		/**
 		 * If want to define `wave`, the quantity must divisible by 5
 		 */
 		generateWave: function () {
-			// for (var i=0; i<this.opt.itemQuantity; i++) {
-			// 	if (i % 5 == 1) {
-			// 		this.element.find('.ld-center').append('<div style="'+this.itemStyle+'" class="ld-item inline '+this.opt.shape+'"></div>');
-			// 	} else if (i % 5 == 2) {
-			// 		this.element.find('.ld-center').append('<div style="'+this.itemStyle+'" class="ld-item inline '+this.opt.shape+'"></div>');
-			// 	} else if (i % 5 == 3) {
-			// 		this.element.find('.ld-center').append('<div style="'+this.itemStyle+'" class="ld-item inline '+this.opt.shape+'"></div>');
-			// 	} else if (i % 5 == 4) {
-			// 		this.element.find('.ld-center').append('<div style="'+this.itemStyle+'" class="ld-item inline '+this.opt.shape+'"></div>');
-			// 	} else {
-			// 		this.element.find('.ld-center').append('<div style="'+this.itemStyle+'" class="ld-item inline '+this.opt.shape+'"></div>');
-			// 	}
-			// }
+
 		},
 
 		generateTriangle: function () {
-			var _top = 0,
-					_left = 30,
-					_divide = this.opt.itemQuantity / 3,
+			var _divide = this.opt.itemQuantity / 3,
+					_top = 0,
+					_left = 30 - (30 / _divide),
 					_size = 60,
 					_height = (Math.sqrt(3) / 2) * _size;
 
@@ -181,6 +187,8 @@ if ("undefined" == typeof jQuery)
 				}
 				this.element.find('.ld-center').append('<div style="'+this.itemStyle+';left:'+_left+'px;top:'+_top+'px" class="ld-item square '+this.opt.shape+'"></div>');
 			}
+
+			return _size;
 		}
 	};
 

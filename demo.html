@@ -1,0 +1,75 @@
+<html>
+<head>
+	<title>Demo Jquery Loading</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="dev/jquery.loading.css">
+
+	<style type="text/css">
+body {
+	width: 1200px !important;
+	margin: 20px auto;
+}
+.loading,
+.handle {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	height: 400px;
+}
+.wrap_handle {
+	padding-left: 15px;
+}
+.handle {
+	padding-top: 30px;
+	background-color: #ddf;
+}
+	</style>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="dev/jquery.loading.js"></script>
+</head>
+<body>
+	<div class="">
+		<div class="col-md-4 loading"></div>
+		<div class="col-md-8 wrap_handle">
+			<div class="col-md-12 handle">
+				<div class="col-md-6">
+					<label>Color of item:</label>
+					<input type="text" class="form-control" value="#939">
+					<label>Number of item:</label>
+					<input type="text" class="form-control" value="10">
+					<label>Size of item:</label>
+					<select class="form-control">
+						<option value="small">Small</option>
+						<option value="normal" selected>Normal</option>
+						<option value="large">Large</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<label>Speed of loading:</label>
+					<select class="form-control">
+						<option value="slow">Slow</option>
+						<option value="normal" selected>Normal</option>
+						<option value="fase">Fast</option>
+					</select>
+					<label>Shape: </label>
+					<div class="form-control">
+						<label><input type="radio" checked> Circle</label>
+						<label><input type="radio"> Square</label>
+					</div>
+					<label>Type: </label>
+					<select class="form-control">
+						<option value="inline">Inline</option>
+						<option value="square">Square</option>
+						<option value="triangle">Triangle</option>
+						<option value="circle" selected>Circle</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+
+
+</script>
+</html>
