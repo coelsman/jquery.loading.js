@@ -9,7 +9,7 @@ if ("undefined" == typeof jQuery)
 !function ($) {
 
 	// Define Constant variables
-	var SPEED = { 'slow': 4, 'normal': 8, 'fast': 12 },
+	var SPEED = { 'slow': 6, 'normal': 8, 'fast': 10 },
 			SIZE = { 'small': 6, 'normal': 10, 'large': 20 },
 			TYPE = ['inline', 'square', 'triangle', 'circle', 'wave'];
 
@@ -40,7 +40,7 @@ if ("undefined" == typeof jQuery)
 				this.opt.itemSize = (options.itemSize) ? options.itemSize : this.opt.itemSize;
 				this.opt.speed = (options.speed) ? SPEED[options.speed] : this.opt.speed;
 				this.opt.message = (options.message) ? options.message : null;
-
+console.log(this.opt);
 				if (options.type) {
 					if (TYPE.indexOf(options.type) != -1)
 						this.opt.type = options.type;
@@ -57,7 +57,7 @@ if ("undefined" == typeof jQuery)
 		generate: function () {
 			var width;
 
-			this.element.css('display' ,'block');
+			this.element.css({'display':'block', 'position':'relative'});
 			this.element.addClass('jquery-loading').html('<div class="ld-center"></div>');
 
 			if (this.opt.type == 'inline')

@@ -34,42 +34,65 @@ body {
 			<div class="col-md-12 handle">
 				<div class="col-md-6">
 					<label>Color of item:</label>
-					<input type="text" class="form-control" value="#939">
+					<input type="text" class="form-control" value="#939" id="load-color">
 					<label>Number of item:</label>
-					<input type="text" class="form-control" value="10">
+					<input type="text" class="form-control" value="10" id="load-number">
 					<label>Size of item:</label>
-					<select class="form-control">
-						<option value="small">Small</option>
-						<option value="normal" selected>Normal</option>
-						<option value="large">Large</option>
-					</select>
+					<input type="text" class="form-control" value="10" id="load-size">
 				</div>
 				<div class="col-md-6">
 					<label>Speed of loading:</label>
-					<select class="form-control">
+					<select class="form-control" id="load-speed">
 						<option value="slow">Slow</option>
 						<option value="normal" selected>Normal</option>
-						<option value="fase">Fast</option>
+						<option value="fast">Fast</option>
 					</select>
 					<label>Shape: </label>
 					<div class="form-control">
-						<label><input type="radio" checked> Circle</label>
-						<label><input type="radio"> Square</label>
+						<label><input type="radio" name="load-shape" value="circle" checked> Circle</label>
+						<label><input type="radio" name="load-shape" value="square"> Square</label>
 					</div>
 					<label>Type: </label>
-					<select class="form-control">
+					<select class="form-control" id="load-type">
 						<option value="inline">Inline</option>
 						<option value="square">Square</option>
 						<option value="triangle">Triangle</option>
 						<option value="circle" selected>Circle</option>
 					</select>
 				</div>
+				<div class="col-md-12">
+					<input type="button" value="Update" id="btn-update" class="btn btn-success">
+				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
+var loadingHandle;
 
+function runLoading () {
+	var objLoading = {
+		itemColor: $('#load-color').val(),
+		itemQuantity: parseInt($('#load-number').val()),
+		itemSize: parseInt($('#load-size').val()),
+		speed: $('#load-speed option:selected').val(),
+		shape: $('[name="load-shape"]:checked').val(),
+		type: $('#load-type option:selected').val()
+	};
+
+	loadingHandle = $('.loading').loading(objLoading);
+	loadingHandle.run(function () {});
+}
+function stopLoading () {
+	loadingHandle.stop();
+}
+
+runLoading();
+
+$('#btn-update').on('click', function () {
+	stopLoading();
+	runLoading();
+});
 
 </script>
 </html>
